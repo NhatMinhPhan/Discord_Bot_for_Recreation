@@ -2,6 +2,7 @@ import discord
 import os # default module
 from dotenv import load_dotenv
 from discord import app_commands
+import counting
 
 load_dotenv() # load all the variables from the env file
 intents = discord.Intents.default()
@@ -47,10 +48,9 @@ async def toggle_counting_command(interaction):
     await interaction.response.send_message(response)
 
 @client.event
-async def on_message(message):
+async def on_message(message: discord.Message):
     if message.author == client.user:
         return
-    print(len(message.content))
     msg = message.content.strip()
 
     if msg.startswith('$dbless_counting'):
@@ -62,6 +62,10 @@ async def on_message(message):
     if msg.startswith('$dbless_toggle_counting'):
         response = toggle_counting()
         await message.channel.send(response, reference=message)
+
+    if message.channel.name.strip().lower() == 'counting' and BotData.counting_mode:
+        await counting.process_counting_messages(message.channel, message)
+
 
 
 def toggle_counting():
