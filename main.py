@@ -1,24 +1,34 @@
 import discord
 import os # default module
 from dotenv import load_dotenv
+from discord import app_commands
 
 load_dotenv() # load all the variables from the env file
-bot = discord.Bot(intents = discord.Intents(messages=True, message_content=True))
+intents = discord.Intents.default()
+intents.message_content = True
+intents.messages = True
+client = discord.Client(intents = intents)
+tree = app_commands.CommandTree(client)
 
 class BotData:
     counting_mode = False
 
-@bot.event
+@client.event
 async def on_ready():
-    print(f"{bot.user} is ready and online!")
+    await tree.sync(guild=discord.Object(id=1367793365344849991))
+    print(f"{client.user} is ready and online!")
 
-@bot.slash_command(name="hello", description="Say hello to the bot")
-async def hello(ctx: discord.ApplicationContext):
-    await ctx.respond("Hey!")
+@tree.command(
+    name="hey",
+    description="Say hey to the bot!",
+    guild=discord.Object(id = 1367793365344849991)
+)
+async def hello(interaction):
+    await interaction.response.send_message("Hey!")
 
-@bot.event
+@client.event
 async def on_message(message):
-    if message.author == bot.user:
+    if message.author == client.user:
         return
     print(len(message.content))
     msg = message.content.strip()
@@ -41,4 +51,4 @@ def toggle_counting():
     response += "."
     return response
 
-bot.run(os.getenv('DISCORD_TOKEN')) # run the bot with the token
+client.run(os.getenv('DISCORD_TOKEN')) # run the bot with the token
