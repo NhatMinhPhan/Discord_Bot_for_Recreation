@@ -26,6 +26,26 @@ async def on_ready():
 async def hello(interaction):
     await interaction.response.send_message("Hey!")
 
+@tree.command(
+    name="counting_mode",
+    description="Check the status of the counting mode (ON/OFF)",
+    guild=discord.Object(id = 1367793365344849991)
+)
+async def get_counting_mode(interaction):
+    response = "Counting mode is currently "
+    response += "ON" if BotData.counting_mode else "OFF"
+    response += "."
+    await interaction.response.send_message(response)
+
+@tree.command(
+    name="toggle_counting",
+    description="Toggle the status of the counting mode (ON/OFF)",
+    guild=discord.Object(id = 1367793365344849991)
+)
+async def toggle_counting_command(interaction):
+    response = toggle_counting()
+    await interaction.response.send_message(response)
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -37,11 +57,11 @@ async def on_message(message):
         response = "Counting mode is currently "
         response += "ON" if BotData.counting_mode else "OFF"
         response += "."
-        await message.channel.send(response)
+        await message.channel.send(response, reference=message)
 
     if msg.startswith('$dbless_toggle_counting'):
         response = toggle_counting()
-        await message.channel.send(response)
+        await message.channel.send(response, reference=message)
 
 
 def toggle_counting():
