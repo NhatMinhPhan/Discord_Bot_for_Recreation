@@ -1,4 +1,5 @@
 import discord
+from typing import List
 
 class CountingData:
     current_lives: int = 3
@@ -7,7 +8,8 @@ class CountingData:
     max_int: int = 0
     one_number_per_user: bool = False
     message_with_last_int: discord.Message = None
-
+    # Admin roles to which some commands are restricted
+    admin_roles: List[discord.Role] = []
 
     @staticmethod
     def reset_lives():
@@ -31,7 +33,7 @@ class CountingData:
     def toggle_one_number_per_user():
         CountingData.one_number_per_user = not CountingData.one_number_per_user
 
-async def process_counting_messages(channel: discord.TextChannel, latest_message: discord.Message=None):
+async def process_counting_messages(channel: discord.TextChannel, latest_message: discord.Message=None) -> None:
     """ Takes a counting channel """
     assert channel.name.strip().lower() == 'counting', "Channel's name is not called 'counting'"
     if latest_message is None:
