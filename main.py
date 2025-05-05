@@ -3,6 +3,7 @@ import os # default module
 from dotenv import load_dotenv
 from discord import app_commands
 import counting
+import admin
 
 load_dotenv() # load all the variables from the env file
 intents = discord.Intents.default()
