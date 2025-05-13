@@ -2,6 +2,7 @@ import discord
 from typing import List
 
 class CountingData:
+    counting_mode = False
     current_lives: int = 3
     current_int: int = 1
     max_lives: int = 3
