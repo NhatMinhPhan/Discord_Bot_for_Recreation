@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Changed variable name for MY_GUILD to make it final">
-      <change afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
+    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Polished admin.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/counting.py" beforeDir="false" afterPath="$PROJECT_DIR$/counting.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -39,14 +39,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.counting.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.counting.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -103,7 +103,23 @@
       <option name="project" value="LOCAL" />
       <updated>1746454155329</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added admin.py for control by server admins (not bot admins)">
+      <option name="closed" value="true" />
+      <created>1746466442369</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746466442369</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Polished admin.py">
+      <option name="closed" value="true" />
+      <created>1746628432435</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746628432435</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +139,8 @@
     <MESSAGE value="Added counting.py" />
     <MESSAGE value="Added more slash commands, polished up main.py" />
     <MESSAGE value="Changed variable name for MY_GUILD to make it final" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed variable name for MY_GUILD to make it final" />
+    <MESSAGE value="Added admin.py for control by server admins (not bot admins)" />
+    <MESSAGE value="Polished admin.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Polished admin.py" />
   </component>
 </project>

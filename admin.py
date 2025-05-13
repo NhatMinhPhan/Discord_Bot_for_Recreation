@@ -2,6 +2,9 @@
 import discord
 from typing import Tuple, List
 
+class AdminData:
+    admin_roles: List[discord.Role] = []
+
 def get_roles(guild: discord.Guild, *args: int) -> Tuple[discord.Role, ...]:
     """
     Returns a tuple of Discord roles given a guild and multiple IDs as arguments.
