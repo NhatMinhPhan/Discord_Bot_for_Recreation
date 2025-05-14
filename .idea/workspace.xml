@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Added weather.py" />
+    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Edited bot_help function in main.py">
+      <change afterPath="$PROJECT_DIR$/hangman.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,15 +37,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.admin.executor&quot;: &quot;Run&quot;,
-    &quot;Python.counting.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.admin.executor": "Run",
+    "Python.counting.executor": "Run",
+    "Python.hangman.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -139,7 +143,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747206646197</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Deleted weather.py due to change of plans">
+      <option name="closed" value="true" />
+      <created>1747207154317</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1747207154317</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Edited bot_help function in main.py">
+      <option name="closed" value="true" />
+      <created>1747207227819</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1747207227819</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -167,6 +187,8 @@
     <MESSAGE value="Added new slash commands relating to admin roles, and polished main.py a little" />
     <MESSAGE value="Finished the counting features for now" />
     <MESSAGE value="Added weather.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added weather.py" />
+    <MESSAGE value="Deleted weather.py due to change of plans" />
+    <MESSAGE value="Edited bot_help function in main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edited bot_help function in main.py" />
   </component>
 </project>
