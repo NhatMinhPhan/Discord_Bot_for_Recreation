@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from discord import app_commands
 import counting
 import admin
+import hangman
 from typing import List
 
 load_dotenv() # load all the variables from the env file
@@ -332,6 +333,13 @@ async def bot_help(interaction):
     `/counting_info`: Return all information about the counting game
     `/counting_high_score`: Check the high score achieved in the counting game
     `/set_max_lives_to <positive-integer>` : Set the number of max counting lives to a certain positive integer (Admins-only)
+    
+    ## Hangman:
+    `/new_hangman`: Create a new hangman game played only in #hangman
+    `/guess <letter>`: Guess a letter for an ongoing game of hangman only in #hangman if there is one
+    `/end_hangman`: Terminate any ongoing game of hangman. This works only in #hangman
+    `/reset_hangman`: Terminate any ongoing game of hangman and start a new one in #hangman
+    `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
     '''
     await interaction.response.send_message(response, ephemeral = True)
 
@@ -342,6 +350,9 @@ async def on_message(message: discord.Message):
 
     if message.channel.name.strip().lower() == 'counting' and counting.CountingData.counting_mode:
         await counting.process_counting_messages(message.channel, message)
+
+    if message.channel.name.strip().lower() == 'hangman' and hangman.HangmanData.is_ready:
+        pass
 
 def toggle_counting():
     counting.CountingData.counting_mode = not counting.CountingData.counting_mode
