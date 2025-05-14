@@ -45,8 +45,11 @@ async def get_counting_mode(interaction):
 )
 async def toggle_counting_command(interaction):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if not roles_are_set:
+        response = 'Admin roles for this bot are not set yet.'
+        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
+        await interaction.response.send_message(response, ephemeral=True)
         return
     # Check if the user has one of the admin roles set for the bot:
     member_is_admin = False
@@ -55,7 +58,7 @@ async def toggle_counting_command(interaction):
             member_is_admin = True
             break
     if not member_is_admin:
-        # Send a private message to the user
+        # Send an ephemeral message to the user
         await interaction.response.send_message(
             'This command cannot be carried out because you do not have one of the admin roles set for this bot.',
             ephemeral = True
@@ -83,8 +86,11 @@ async def get_one_number_per_user(interaction):
 )
 async def toggle_one_number_per_user(interaction):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if not roles_are_set:
+        response = 'Admin roles for this bot are not set yet.'
+        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
+        await interaction.response.send_message(response, ephemeral=True)
         return
     # Check if the user has one of the admin roles set for the bot:
     member_is_admin = False
@@ -93,7 +99,7 @@ async def toggle_one_number_per_user(interaction):
             member_is_admin = True
             break
     if not member_is_admin:
-        # Send a private message to the user
+        # Send an ephemeral message to the user
         await interaction.response.send_message(
             'This command cannot be carried out because you do not have one of the admin roles set for this bot.',
             ephemeral=True
@@ -135,7 +141,7 @@ async def get_counting_info(interaction):
     guild=MY_GUILD
 )
 async def counting_high_score(interaction):
-    response = f"COUNTING HIGH SCORE: {counting.CountingData.current_lives}"
+    response = f"COUNTING HIGH SCORE: {counting.CountingData.max_int}"
     await interaction.response.send_message(response)
 
 @tree.command(
@@ -146,8 +152,11 @@ async def counting_high_score(interaction):
 @app_commands.describe(new_max_lives='The new number of max lives')
 async def set_max_lives_to(interaction, new_max_lives: str):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if not roles_are_set:
+        response = 'Admin roles for this bot are not set yet.'
+        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
+        await interaction.response.send_message(response, ephemeral=True)
         return
     # Check if the user has one of the admin roles set for the bot:
     member_is_admin = False
@@ -156,7 +165,7 @@ async def set_max_lives_to(interaction, new_max_lives: str):
             member_is_admin = True
             break
     if not member_is_admin:
-        # Send a private message to the user
+        # Send an ephemeral message to the user
         await interaction.response.send_message(
             'This command cannot be carried out because you do not have one of the admin roles set for this bot.',
             ephemeral=True
@@ -186,13 +195,16 @@ async def set_max_lives_to(interaction, new_max_lives: str):
 
 @tree.command(
     name="get_admin_roles",
-    description="Gets a list of the admin roles for this server",
+    description="Get a list of the admin roles for this server",
     guild=MY_GUILD
 )
 async def get_admin_roles(interaction):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if not roles_are_set:
+        response = 'Admin roles for this bot are not set yet.'
+        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
+        await interaction.response.send_message(response, ephemeral=True)
         return
 
     admin_roles = admin.AdminData.admin_roles
@@ -203,13 +215,13 @@ async def get_admin_roles(interaction):
 
 @tree.command(
     name="update_admin_roles",
-    description="Update admin roles for this bot by following the slash command with the names of such roles (Admins-only if admin roles for this bot have been set)",
+    description="Update admin roles for this bot with names (Admins-only if admin roles for this bot have been set)",
     guild=MY_GUILD
 )
-@app_commands.describe(args='Names of the admin roles to be set for this bot')
-async def update_admin_roles(interaction, *args: str):
+@app_commands.describe(admins='Names of the admin roles to be set for this bot, separated by spaces')
+async def update_admin_roles(interaction, admins: str):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if roles_are_set:
         # Check if the user has one of the admin roles set for the bot:
         member_is_admin = False
@@ -218,17 +230,18 @@ async def update_admin_roles(interaction, *args: str):
                 member_is_admin = True
                 break
         if not member_is_admin:
-            # Send a private message to the user
+            # Send an ephemeral message to the user
             await interaction.response.send_message(
                 'This command cannot be carried out because you do not have one of the admin roles set for this bot.',
                 ephemeral=True
             )
             return
 
+    arg_list = admins.split(' ')
     try:
-        admin.AdminData.admin_roles = list(
-            admin.get_roles_by_names(client.get_guild(int(os.getenv('MY_SERVER'))), *args)
-        )
+        admin.AdminData.admin_roles.extend(list(
+            admin.get_roles_by_names(client.get_guild(int(os.getenv('MY_SERVER'))), *arg_list)
+        ))
     except AssertionError:
         print('update_admin_roles: the guild argument is not a Guild object')
         await interaction.response.send_message(
@@ -239,7 +252,7 @@ async def update_admin_roles(interaction, *args: str):
         admin_roles = admin.AdminData.admin_roles
         admin_roles_names: List[str] = [role.name for role in admin_roles]
 
-        response += f"Updated admin roles: {admin_roles_names}"
+        response += f"\nUpdated admin roles: {admin_roles_names}"
         await interaction.response.send_message(response)
 
 @tree.command(
@@ -249,7 +262,7 @@ async def update_admin_roles(interaction, *args: str):
 )
 async def reset_admin_roles(interaction):
     # This is admins-only, so the following checks if admin roles for this bot have been set or not
-    roles_are_set = admin_roles_are_set(interaction)
+    roles_are_set = await admin_roles_are_set()
     if roles_are_set:
         # Check if the user has one of the admin roles set for the bot:
         member_is_admin = False
@@ -258,14 +271,19 @@ async def reset_admin_roles(interaction):
                 member_is_admin = True
                 break
         if not member_is_admin:
-            # Send a private message to the user
+            # Send an ephemeral message to the user
             await interaction.response.send_message(
                 'This command cannot be carried out because you do not have one of the admin roles set for this bot.',
                 ephemeral=True
             )
             return
+    else:
+        response = 'Admin roles for this bot are not set yet.'
+        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
+        await interaction.response.send_message(response, ephemeral=True)
 
     admin.AdminData.admin_roles.clear()
+    await interaction.response.send_message('Admin roles for this bot have been cleared.')
 
 
 @client.event
@@ -283,7 +301,7 @@ def toggle_counting():
     response += "."
     return response
 
-async def admin_roles_are_set(interaction) -> bool:
+async def admin_roles_are_set() -> bool:
     """
     Checks if admin roles for this bot are set.
     :param: interaction: Interaction passed as an argument for a slash command
@@ -291,9 +309,6 @@ async def admin_roles_are_set(interaction) -> bool:
     """
     admin_roles = admin.AdminData.admin_roles
     if len(admin_roles) == 0:
-        response = 'Admin roles for this bot are not set yet.'
-        response += '\nPlease use the command /update_admin_roles to set admin roles for this bot so that admins-only commands work.'
-        await interaction.response.send_message(response)
         return False
     return True
 
