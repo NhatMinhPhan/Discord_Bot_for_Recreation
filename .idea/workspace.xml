@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Added new slash commands relating to admin roles, and polished main.py a little">
+    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Finished the counting features for now">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -126,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747161950152</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Finished the counting features for now">
+      <option name="closed" value="true" />
+      <created>1747194137338</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747194137338</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,6 +157,7 @@
     <MESSAGE value="Added admin.py for control by server admins (not bot admins)" />
     <MESSAGE value="Polished admin.py" />
     <MESSAGE value="Added new slash commands relating to admin roles, and polished main.py a little" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new slash commands relating to admin roles, and polished main.py a little" />
+    <MESSAGE value="Finished the counting features for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished the counting features for now" />
   </component>
 </project>
