@@ -94,6 +94,7 @@ def guess(response: str) -> bool:
             print(f'Correct! Now we have: {HangmanData.current_guess}')
         else:
             print(f'That\'s right! The answer is: \'{HangmanData.solution}\'!')
+        return True
 
     else:
         HangmanData.hangman_lives -= 1
@@ -104,6 +105,7 @@ def guess(response: str) -> bool:
         else:
             print(f'Incorrect! You\'re now out of lives!')
             print(f'The answer is \'{HangmanData.solution}\'!')
+        return False
 
 if __name__ == '__main__':
     set_up()
