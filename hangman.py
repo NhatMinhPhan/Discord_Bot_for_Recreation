@@ -72,8 +72,6 @@ def set_up(word_length: int = -1, *, startswith: Union[str, None] = None, endswi
     HangmanData.is_ready = True
     HangmanData.hangman_lives = HangmanData.INITIAL_LIVES
     HangmanData.incorrect_letters.clear()
-    print(f'BEGIN: {HangmanData.current_guess}')
-    print(f'You have {HangmanData.hangman_lives} lives left.')
 
 def guess(response: str) -> bool:
     """
@@ -84,6 +82,52 @@ def guess(response: str) -> bool:
     assert isinstance(response, str), 'response is not a str'
     assert len(response) == 1, 'response is not 1 character long'
     assert response.isalpha(), 'response consists of a NON-alphabetic character'
+    response = response.lower()
+    if response in HangmanData.solution:
+        start_index = -1
+        while HangmanData.solution.find(response, start_index + 1) >= 0:
+            start_index = HangmanData.solution.find(response, start_index + 1)
+            HangmanData.current_guess = HangmanData.current_guess[:start_index] + response + \
+                                        HangmanData.current_guess[start_index + 1:]
+        if HangmanData.solution == HangmanData.current_guess:
+            HangmanData.is_ready = False
+        return True
+
+    else:
+        HangmanData.hangman_lives -= 1
+        HangmanData.incorrect_letters.append(response)
+        return False
+
+"""
+def set_up(word_length: int = -1, *, startswith: Union[str, None] = None, endswith: Union[str, None] = None) -> None:
+    assert isinstance(word_length, int), 'word_length is not an int'
+    assert startswith is None or isinstance(startswith, str), 'startswith is neither None or a str'
+    assert endswith is None or isinstance(endswith, str), 'endswith is neither None or a str'
+
+    word = ''
+
+    if startswith is None and endswith is None:
+        word = fetch_word(word_length)
+    elif startswith:
+        while len(word) == 0 or word[0] == startswith:
+            word = fetch_word(word_length)
+    elif endswith:
+        word = fetch_word(word_length)
+
+    HangmanData.solution = word
+    HangmanData.current_guess = '*' * len(word)
+    HangmanData.is_ready = True
+    HangmanData.hangman_lives = HangmanData.INITIAL_LIVES
+    HangmanData.incorrect_letters.clear()
+    print(f'BEGIN: {HangmanData.current_guess}')
+    print(f'You have {HangmanData.hangman_lives} lives left.')
+"""
+"""
+def guess(response: str) -> bool:
+    assert isinstance(response, str), 'response is not a str'
+    assert len(response) == 1, 'response is not 1 character long'
+    assert response.isalpha(), 'response consists of a NON-alphabetic character'
+    response = response.lower()
     if response in HangmanData.solution:
         start_index = -1
         while HangmanData.solution.find(response, start_index + 1) >= 0:
@@ -106,9 +150,12 @@ def guess(response: str) -> bool:
             print(f'Incorrect! You\'re now out of lives!')
             print(f'The answer is \'{HangmanData.solution}\'!')
         return False
+"""
 
+"""
 if __name__ == '__main__':
-    set_up()
+    set_up(5)
     while HangmanData.solution != HangmanData.current_guess and HangmanData.hangman_lives > 0:
         user_input = input('Guess: ')
         guess(user_input)
+"""

@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Made a functional hangman game" />
+    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Added boolean return values to guess()">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hangman.py" beforeDir="false" afterPath="$PROJECT_DIR$/hangman.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,16 +37,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.admin.executor": "Run",
-    "Python.counting.executor": "Run",
-    "Python.hangman.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "hangman"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.admin.executor&quot;: &quot;Run&quot;,
+    &quot;Python.counting.executor&quot;: &quot;Run&quot;,
+    &quot;Python.hangman.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hangman&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -164,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747218340997</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added boolean return values to guess()">
+      <option name="closed" value="true" />
+      <created>1747237882953</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1747237882953</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -195,6 +206,7 @@
     <MESSAGE value="Deleted weather.py due to change of plans" />
     <MESSAGE value="Edited bot_help function in main.py" />
     <MESSAGE value="Made a functional hangman game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made a functional hangman game" />
+    <MESSAGE value="Added boolean return values to guess()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added boolean return values to guess()" />
   </component>
 </project>
