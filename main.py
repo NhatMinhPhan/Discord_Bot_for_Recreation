@@ -318,6 +318,11 @@ async def bot_help(interaction):
     `/hey`: Say hey to the bot!
     `/hello`: Say hello to the bot!
     
+    ## Administrative:
+    `/get_admin_roles`: Get a list of the admin roles for this server (Admins-only)
+    `/update_admin_roles`: Update admin roles for this bot with names (Admins-only if admin roles for this bot have been set)
+    `/reset_admin_roles`: Reset admin roles for this bot (Admins-only if admin roles for this bot have been set)
+    
     ## Counting:
     `/counting_mode`: Check the status of the counting mode (ON/OFF)
     `/toggle_counting`: Toggle the status of the counting mode (ON/OFF) (Admins-only)
@@ -327,11 +332,6 @@ async def bot_help(interaction):
     `/counting_info`: Return all information about the counting game
     `/counting_high_score`: Check the high score achieved in the counting game
     `/set_max_lives_to <positive-integer>` : Set the number of max counting lives to a certain positive integer (Admins-only)
-    
-    ## Administrative:
-    `/get_admin_roles`: Get a list of the admin roles for this server (Admins-only)
-    `/update_admin_roles`: Update admin roles for this bot with names (Admins-only if admin roles for this bot have been set)
-    `/reset_admin_roles`: Reset admin roles for this bot (Admins-only if admin roles for this bot have been set)
     '''
     await interaction.response.send_message(response, ephemeral = True)
 
