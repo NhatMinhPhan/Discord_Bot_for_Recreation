@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Added potential slash commands for hangman">
+    <list default="true" id="2327b608-2607-4d0e-a9b3-4e5ad0a51e45" name="Changes" comment="Made a functional hangman game on Discord">
+      <change afterPath="$PROJECT_DIR$/rockpaperscissors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hangman.py" beforeDir="false" afterPath="$PROJECT_DIR$/hangman.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +183,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747242836711</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Made a functional hangman game on Discord">
+      <option name="closed" value="true" />
+      <created>1747297158164</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747297158164</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -217,6 +224,7 @@
     <MESSAGE value="Made a functional hangman game" />
     <MESSAGE value="Added boolean return values to guess()" />
     <MESSAGE value="Added potential slash commands for hangman" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added potential slash commands for hangman" />
+    <MESSAGE value="Made a functional hangman game on Discord" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made a functional hangman game on Discord" />
   </component>
 </project>
