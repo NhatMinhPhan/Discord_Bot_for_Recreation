@@ -1,11 +1,12 @@
-This is a rough draft for README.md
-
-This is a bot which is not reliant on any use of a database and is programmed for practice and non-professional purposes.
+This is a Discord bot which is not reliant on any use of a database and is programmed for practice and non-professional purposes.
 This bot facilitates activities comprising of counting, hangman and rock paper scissors.
 
 Enter /help for commands.
 
-NOTE: The .env file was accidentally committed, and therefore all the data contained thereof have been **reset, removed or revoked**.
+The following libraries and packages are crucial in this bot's operations, all of which were installed via the Python PIP:
+_Discord.py, requests, and python-dotenv_.
+
+NOTE: The .env file was committed entirely by accident, and therefore all the data contained thereof have been **reset, removed or revoked**.
 
 __________________________________________________________________________________________
 ## COMMANDS
