@@ -10,6 +10,14 @@ class HangmanData:
     is_ready = False
     incorrect_letters = []
 
+    @staticmethod
+    def is_finished() -> bool:
+        """
+        Returns if the ongoing game of hangman is finished by checking if the current guess matches the solution
+        :return: a boolean value
+        """
+        return HangmanData.solution == HangmanData.current_guess
+
 def fetch_word(length: int = -1) -> str:
     """
     Return a random word from Random Word API.
@@ -68,7 +76,7 @@ def set_up(word_length: int = -1, *, startswith: Union[str, None] = None, endswi
         word = fetch_word(word_length)
 
     HangmanData.solution = word
-    HangmanData.current_guess = '*' * len(word)
+    HangmanData.current_guess = '?' * len(word)
     HangmanData.is_ready = True
     HangmanData.hangman_lives = HangmanData.INITIAL_LIVES
     HangmanData.incorrect_letters.clear()
@@ -80,8 +88,9 @@ def guess(response: str) -> bool:
     :return: True if correct, False otherwise.
     """
     assert isinstance(response, str), 'response is not a str'
+    response = response.strip() # Strips whitespace
     assert len(response) == 1, 'response is not 1 character long'
-    assert response.isalpha(), 'response consists of a NON-alphabetic character'
+    assert response.isalpha(), 'response consists of a NON-alphabetical character'
     response = response.lower()
     if response in HangmanData.solution:
         start_index = -1
@@ -89,13 +98,16 @@ def guess(response: str) -> bool:
             start_index = HangmanData.solution.find(response, start_index + 1)
             HangmanData.current_guess = HangmanData.current_guess[:start_index] + response + \
                                         HangmanData.current_guess[start_index + 1:]
-        if HangmanData.solution == HangmanData.current_guess:
+        if HangmanData.is_finished():
             HangmanData.is_ready = False
         return True
 
     else:
         HangmanData.hangman_lives -= 1
-        HangmanData.incorrect_letters.append(response)
+        if response not in HangmanData.incorrect_letters:
+            HangmanData.incorrect_letters.append(response)
+        if HangmanData.hangman_lives == 0:
+            HangmanData.is_ready = False
         return False
 
 """
@@ -125,6 +137,7 @@ def set_up(word_length: int = -1, *, startswith: Union[str, None] = None, endswi
 """
 def guess(response: str) -> bool:
     assert isinstance(response, str), 'response is not a str'
+    response = response.strip() # Strips whitespace
     assert len(response) == 1, 'response is not 1 character long'
     assert response.isalpha(), 'response consists of a NON-alphabetic character'
     response = response.lower()
@@ -134,10 +147,11 @@ def guess(response: str) -> bool:
             start_index = HangmanData.solution.find(response, start_index + 1)
             HangmanData.current_guess = HangmanData.current_guess[:start_index] + response + \
                                         HangmanData.current_guess[start_index + 1:]
-        if HangmanData.solution != HangmanData.current_guess:
+        if not HangmanData.is_finished():
             print(f'Correct! Now we have: {HangmanData.current_guess}')
         else:
             print(f'That\'s right! The answer is: \'{HangmanData.solution}\'!')
+            HangmanData.is_ready = False
         return True
 
     else:

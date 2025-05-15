@@ -6,7 +6,7 @@ from discord import app_commands
 import counting
 import admin
 import hangman
-from typing import List
+from typing import List, Union
 
 load_dotenv() # load all the variables from the env file
 intents = discord.Intents.default()
@@ -309,6 +309,121 @@ async def reset_admin_roles(interaction):
     await interaction.response.send_message('Admin roles for this bot have been cleared.')
 
 @tree.command(
+    name="new_hangman",
+    description="Create or reset a new hangman game played only in #hangman",
+    guild=MY_GUILD
+)
+@app_commands.describe(word_length='Length of the word to guess. Leave it blank to get a word of any length')
+async def new_hangman(interaction, word_length: Union[None, str] = None):
+    if interaction.channel.name.lower().strip() != 'hangman':
+        await interaction.response.send_message('This slash command only works in #hangman.')
+        return
+
+    assert word_length is None or isinstance(word_length, str), 'word_length is neither None or a str'
+
+    # Before setting up, check if a game of hangman is still taking place
+    hangman_is_ongoing = hangman.HangmanData.is_ready
+
+    if isinstance(word_length, str):
+        assert word_length.strip().isdigit(), 'word_length consists of a NON-numeric character'
+        hangman.set_up(int(word_length))
+    elif word_length is None:
+        hangman.set_up()
+
+    if not hangman_is_ongoing: # Create a new game
+        response = 'A new game of hangman has been set up.' + \
+        f'\nYou have **{hangman.HangmanData.hangman_lives}** lives left.' + \
+        f'\nYour word is: {hangman.HangmanData.current_guess}'
+    else: # Reset an ongoing game
+        response = 'The game of hangman has been **reset**!\n' + \
+        f'\nYou have **{hangman.HangmanData.hangman_lives}** lives left.' + \
+        f'\nYour word is: {hangman.HangmanData.current_guess}'
+    await interaction.response.send_message(response)
+
+@tree.command(
+    name = 'hangman_guess',
+    description = 'Guess a letter for an ongoing game of hangman only in #hangman if there is one',
+    guild = MY_GUILD
+)
+@app_commands.describe(letter='a one-letter long guess')
+async def hangman_guess(interaction, letter: str):
+    if interaction.channel.name.lower().strip() != 'hangman':
+        await interaction.response.send_message('This slash command only works in #hangman.')
+        return
+
+    if not hangman.HangmanData.is_ready: # No hangman game is ongoing
+        await interaction.response.send_message('No hangman game is going on right now.')
+        return
+
+    # The following variable is stored to detect repeated letters/responses
+    past_guess = hangman.HangmanData.current_guess # Before undergoing hangman.guess
+
+    try:
+        guess_is_true = hangman.guess(letter)
+    except AssertionError as e:
+        await interaction.response.send_message(f'Invalid response! *({e})*')
+        return
+
+    if guess_is_true:
+        if hangman.HangmanData.is_finished():
+            await interaction.response.send_message(f'That\'s right! The answer is: **{hangman.HangmanData.solution}**!' + \
+            '\nCreate a new game by using `/new_hangman`.')
+        else:
+            if letter in past_guess: # Repeated answer
+                await interaction.response.send_message(f'The letter \'{letter}\' is already in {hangman.HangmanData.current_guess}')
+            else:
+                await interaction.response.send_message(f'Correct! We now have: _{hangman.HangmanData.current_guess}_')
+
+    else:
+        if hangman.HangmanData.hangman_lives == 0:
+            await interaction.response.send_message(f'Game over! The answer is **{hangman.HangmanData.solution}**!')
+            return
+        await interaction.response.send_message(f'Incorrect! You now have **{hangman.HangmanData.hangman_lives}** lives left.' + \
+        f'\nIncorrect letters so far: {hangman.HangmanData.incorrect_letters}' + \
+        f'\nWe still have: _{hangman.HangmanData.current_guess}_')
+
+@tree.command(
+    name="end_hangman",
+    description="Terminate any ongoing game of hangman. This works only in #hangman.",
+    guild=MY_GUILD
+)
+async def end_hangman(interaction):
+    if interaction.channel.name.lower().strip() != 'hangman':
+        await interaction.response.send_message('This slash command only works in #hangman.')
+        return
+
+    if not hangman.HangmanData.is_ready:
+        await interaction.response.send_message('No instances of hangman is taking place.' + \
+            '\nConsider creating a new game by `/new_hangman`.')
+        return
+
+    hangman.HangmanData.is_ready = False
+    # Other attributes in hangman.HangmanData are still kept
+    await interaction.response.send_message('The ongoing game of hangman has been terminated.' + \
+    f'\nThe answer was **{hangman.HangmanData.solution}**.')
+
+@tree.command(
+    name = "hangman_progress",
+    description = "Show the used letters and the answer so far for the current game of hangman",
+    guild = MY_GUILD
+)
+async def get_hangman_progress(interaction):
+    if interaction.channel.name.lower().strip() != 'hangman':
+        await interaction.response.send_message('This slash command only works in #hangman.')
+        return
+
+    if not hangman.HangmanData.is_ready:
+        response = 'No instances of hangman is taking place.'
+        response += '\nConsider creating a new game by `/new_hangman`.'
+        await interaction.response.send_message(response)
+        return
+
+    response = f'You have {hangman.HangmanData.hangman_lives} lives left.'
+    response += f'\nIncorrect letters so far: _{hangman.HangmanData.incorrect_letters}_'
+    response += f'\nWe now have: _{hangman.HangmanData.current_guess}_'
+    await interaction.response.send_message(response)
+
+@tree.command(
     name="help",
     description="Get available commands from this bot",
     guild=MY_GUILD
@@ -324,7 +439,7 @@ async def bot_help(interaction):
     `/update_admin_roles`: Update admin roles for this bot with names (Admins-only if admin roles for this bot have been set)
     `/reset_admin_roles`: Reset admin roles for this bot (Admins-only if admin roles for this bot have been set)
     
-    ## Counting:
+    ## Counting (only works in #counting channel):
     `/counting_mode`: Check the status of the counting mode (ON/OFF)
     `/toggle_counting`: Toggle the status of the counting mode (ON/OFF) (Admins-only)
     `/one_number_per_user`: Check the status of the one_number_per_user setting for counting (ON/OFF)
@@ -334,11 +449,10 @@ async def bot_help(interaction):
     `/counting_high_score`: Check the high score achieved in the counting game
     `/set_max_lives_to <positive-integer>` : Set the number of max counting lives to a certain positive integer (Admins-only)
     
-    ## Hangman:
-    `/new_hangman`: Create a new hangman game played only in #hangman
-    `/guess <letter>`: Guess a letter for an ongoing game of hangman only in #hangman if there is one
-    `/end_hangman`: Terminate any ongoing game of hangman. This works only in #hangman
-    `/reset_hangman`: Terminate any ongoing game of hangman and start a new one in #hangman
+    ## Hangman (only works in #hangman channel):
+    `/new_hangman <Optional: word-length>`: Create or reset a new hangman game played only in #hangman
+    `/hangman_guess <letter>`: Guess a letter for an ongoing game of hangman only in #hangman if there is one
+    `/end_hangman`: Terminate any ongoing game of hangman. This works only in #hangman.
     `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
     '''
     await interaction.response.send_message(response, ephemeral = True)
@@ -350,9 +464,6 @@ async def on_message(message: discord.Message):
 
     if message.channel.name.strip().lower() == 'counting' and counting.CountingData.counting_mode:
         await counting.process_counting_messages(message.channel, message)
-
-    if message.channel.name.strip().lower() == 'hangman' and hangman.HangmanData.is_ready:
-        pass
 
 def toggle_counting():
     counting.CountingData.counting_mode = not counting.CountingData.counting_mode
