@@ -1,5 +1,5 @@
 import random
-from typing import Tuple
+from typing import Dict
 
 def generate_move() -> str:
     """
@@ -67,37 +67,39 @@ def compare_moves(a: str, b: str) -> str:
         elif b == 'rock':
             return 'b'
 
-def versus_computer(player_move: str) -> Tuple[str, str]:
+def versus_computer(player_move: str) -> Dict:
     """
     Compare moves between the player and the computer.
     If the player wins, return True.
     Return False otherwise.
     :param player_move: the player's move as a string value (text or emoji)
-    :return: A tuple of 'player' if the player wins, or 'computer' if the computer wins, or 'neither' otherwise, followed by the computer's move
+    :return: A dictionary with two entries:
+    - [winner]: 'player' if the player wins, or 'computer' if the computer wins, 'neither' otherwise or 'invalid' upon an invalid input
+    - [computer]: the computer's move
     """
     player: str = interpret_move(player_move)
     computer: str = generate_move()
 
+    if player == 'invalid':
+        return {
+            'winner': player,
+            'computer_move': computer
+        }
+
     result = compare_moves(player, computer)
     match result:
         case 'neither':
-            return 'neither', computer
+            return {
+                'winner': 'neither',
+                'computer_move': computer
+            }
         case 'a':
-            return 'player', computer
+            return {
+                'winner': 'player',
+                'computer_move': computer
+            }
         case 'b':
-            return 'computer', computer
-
-if __name__ == '__main__':
-    move = ''
-    while move != 'quit':
-        move = input('Next move: ')
-        if move == 'quit':
-            break
-        res = versus_computer(move)
-        match res[0]:
-            case 'neither':
-                print(f'Computer played: {res[1]}\nA tie!')
-            case 'player':
-                print(f'Computer played: {res[1]}\nYou won!')
-            case 'computer':
-                print(f'Computer played: {res[1]}\nComputer won!')
+            return {
+                'winner': 'computer',
+                'computer_move': computer
+            }
