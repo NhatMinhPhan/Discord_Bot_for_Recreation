@@ -35,7 +35,12 @@ class CountingData:
         CountingData.one_number_per_user = not CountingData.one_number_per_user
 
 async def process_counting_messages(channel: discord.TextChannel, latest_message: discord.Message=None) -> None:
-    """ Takes a counting channel """
+    """
+    Process a counting message
+    :param channel: A channel to which latest_message belongs
+    :param latest_message: The latest message to be processed
+    :return: None
+    """
     assert channel.name.strip().lower() == 'counting', "Channel's name is not called 'counting'"
     if latest_message is None:
         latest_message = channel.last_message

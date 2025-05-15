@@ -512,6 +512,10 @@ async def on_message(message: discord.Message):
         await counting.process_counting_messages(message.channel, message)
 
 def toggle_counting():
+    """
+    Toggle counting.CountingData.counting_mode (ON to OFF, OFF to ON)
+    :return: None
+    """
     counting.CountingData.counting_mode = not counting.CountingData.counting_mode
     response = "Counting mode has been turned "
     response += "**ON**" if counting.CountingData.counting_mode else "**OFF**"
