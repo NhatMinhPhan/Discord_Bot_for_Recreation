@@ -6,6 +6,7 @@ from discord import app_commands
 import counting
 import admin
 import hangman
+import rockpaperscissors
 from typing import List, Union
 
 load_dotenv() # load all the variables from the env file
@@ -316,7 +317,7 @@ async def reset_admin_roles(interaction):
 @app_commands.describe(word_length='Length of the word to guess. Leave it blank to get a word of any length')
 async def new_hangman(interaction, word_length: Union[None, str] = None):
     if interaction.channel.name.lower().strip() != 'hangman':
-        await interaction.response.send_message('This slash command only works in #hangman.')
+        await interaction.response.send_message('This slash command only works in #hangman.', ephemeral = True)
         return
 
     assert word_length is None or isinstance(word_length, str), 'word_length is neither None or a str'
@@ -348,7 +349,7 @@ async def new_hangman(interaction, word_length: Union[None, str] = None):
 @app_commands.describe(letter='a one-letter long guess')
 async def hangman_guess(interaction, letter: str):
     if interaction.channel.name.lower().strip() != 'hangman':
-        await interaction.response.send_message('This slash command only works in #hangman.')
+        await interaction.response.send_message('This slash command only works in #hangman.', ephemeral = True)
         return
 
     if not hangman.HangmanData.is_ready: # No hangman game is ongoing
@@ -361,7 +362,7 @@ async def hangman_guess(interaction, letter: str):
     try:
         guess_is_true = hangman.guess(letter)
     except AssertionError as e:
-        await interaction.response.send_message(f'Invalid response! *({e})*')
+        await interaction.response.send_message(f'Invalid response! *({e})*', ephemeral = True)
         return
 
     if guess_is_true:
@@ -389,7 +390,7 @@ async def hangman_guess(interaction, letter: str):
 )
 async def end_hangman(interaction):
     if interaction.channel.name.lower().strip() != 'hangman':
-        await interaction.response.send_message('This slash command only works in #hangman.')
+        await interaction.response.send_message('This slash command only works in #hangman.', ephemeral = True)
         return
 
     if not hangman.HangmanData.is_ready:
@@ -409,7 +410,7 @@ async def end_hangman(interaction):
 )
 async def get_hangman_progress(interaction):
     if interaction.channel.name.lower().strip() != 'hangman':
-        await interaction.response.send_message('This slash command only works in #hangman.')
+        await interaction.response.send_message('This slash command only works in #hangman.', ephemeral = True)
         return
 
     if not hangman.HangmanData.is_ready:
@@ -422,6 +423,48 @@ async def get_hangman_progress(interaction):
     response += f'\nIncorrect letters so far: _{hangman.HangmanData.incorrect_letters}_'
     response += f'\nWe now have: _{hangman.HangmanData.current_guess}_'
     await interaction.response.send_message(response)
+
+@tree.command(
+    name = "rps_cast",
+    description = "Play rock paper scissors with the bot",
+    guild = MY_GUILD
+)
+@app_commands.describe(
+    player_move = 'Your move (rock/paper/scissors)',
+    ephemeral = 'When set to True, the message will only seen by you.'
+)
+@app_commands.choices(player_move = [
+    app_commands.Choice(name = 'rock', value = 1),
+    app_commands.Choice(name = 'paper', value = 2),
+    app_commands.Choice(name = 'scissors', value = 3)
+], ephemeral = [
+    app_commands.Choice(name = 'True', value = 1),
+    app_commands.Choice(name = 'False', value = 2)
+])
+async def rps_cast(interaction, player_move: app_commands.Choice[int],
+                   ephemeral: app_commands.Choice[int]):
+    result = rockpaperscissors.versus_computer(player_move.name)
+    ephemeral = ephemeral.name.strip().lower()
+
+    # Invalid input handling
+    if result['winner'] == 'invalid' or (ephemeral != 'true' and ephemeral != 'false'):
+        await interaction.response.send_message('There is an invalid input in the command.', ephemeral = True)
+        return
+
+    # ephemeral can either be 'true' or 'false'
+    ephemeral_bool: bool = True if ephemeral == 'true' else False
+    response = f'The computer casts: **{result['computer_move']}**!\n'
+    match result['winner']:
+        case 'neither':
+            response += 'It\'s a tie!'
+            await interaction.response.send_message(response, ephemeral = ephemeral_bool)
+        case 'player':
+            response += 'You won!'
+            await interaction.response.send_message(response, ephemeral=ephemeral_bool)
+        case 'computer':
+            response += 'You lost!'
+            await interaction.response.send_message(response, ephemeral=ephemeral_bool)
+    pass
 
 @tree.command(
     name="help",
@@ -454,6 +497,9 @@ async def bot_help(interaction):
     `/hangman_guess <letter>`: Guess a letter for an ongoing game of hangman only in #hangman if there is one
     `/end_hangman`: Terminate any ongoing game of hangman. This works only in #hangman.
     `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
+    
+    ## Rock paper scissors:
+    `/rps-cast <move (rock, paper, scissors or corresponding emoji)>`: Play rock paper scissors with the bot!
     '''
     await interaction.response.send_message(response, ephemeral = True)
 
