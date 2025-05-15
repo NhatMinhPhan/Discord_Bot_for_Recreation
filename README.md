@@ -5,7 +5,7 @@ This bot facilitates activities comprising of counting, hangman and rock paper s
 
 Enter /help for commands.
 
-NOTE: The .env file was accidentally committed, and therefore all the data contained thereof have been reset, removed or revoked.
+NOTE: The .env file was accidentally committed, and therefore all the data contained thereof have been **reset, removed or revoked**.
 
 __________________________________________________________________________________________
 ## COMMANDS
