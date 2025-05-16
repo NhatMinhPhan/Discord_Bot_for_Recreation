@@ -499,7 +499,7 @@ async def bot_help(interaction):
     `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
     
     ## Rock paper scissors:
-    `/rps-cast <move (rock, paper, scissors or corresponding emoji)>`: Play rock paper scissors with the bot!
+    `/rps-cast <move (rock, paper, scissors or corresponding emoji)> <ephemeral (If True, the message will only be seen by you)>`: Play rock paper scissors with the bot!
     '''
     await interaction.response.send_message(response, ephemeral = True)
 
