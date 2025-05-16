@@ -22,7 +22,7 @@ _Discord.py, requests,_ and _python-dotenv_. The Random Word API is also integra
 - [rockpaperscissors.py](https://github.com/NhatMinhPhan/Discord_Bot_for_Recreation/blob/db637f08f70c37aaed770f3d2eb3de232d29d254/rockpaperscissors.py): The script that allows the Discord bot to engage in a game of rock paper scissors, in response to the original message which invokes the bot. Unlike counting.py and hangman.py, all of the slash commands that start with rock paper scissors can be used anywhere in the server.
 
 __________________________________________________________________________________________
-# COMMANDS
+# Slash Commands
 ## General
     `/help`: Get available commands from this bot
     `/hey`: Say hey to the bot!
