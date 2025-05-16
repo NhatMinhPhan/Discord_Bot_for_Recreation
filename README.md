@@ -50,6 +50,6 @@ ________________________________________________________________________________
     `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
     
 ## Rock paper scissors:
-    `/rps-cast <move (rock, paper, scissors or corresponding emoji)> <ephemeral (If True, the message will only be seen by you)`: Play rock paper scissors with the bot!
+    `/rps-cast <move (rock, paper, scissors or corresponding emoji)> <ephemeral (If True, the message will only be seen by you)>`: Play rock paper scissors with the bot!
 __________________________________________________________________________________________
 © Nhat Minh Phan, 2025
