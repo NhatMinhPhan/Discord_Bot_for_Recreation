@@ -14,7 +14,7 @@ _Discord.py, requests,_ and _python-dotenv_. The Random Word API is also integra
 3. Ensure all the Python scripts and the .env file must be in the same directory.
 4. Run [main.py](https://github.com/NhatMinhPhan/Discord_Bot_for_Recreation/blob/db637f08f70c37aaed770f3d2eb3de232d29d254/main.py). And that's it!
 
-### Description of individual files:
+### Description of individual files
 - [main.py](https://github.com/NhatMinhPhan/Discord_Bot_for_Recreation/blob/db637f08f70c37aaed770f3d2eb3de232d29d254/main.py): The file to be executed, containing slash commands and other information relating to the setup of the Discord bot.
 - [admin.py](https://github.com/NhatMinhPhan/Discord_Bot_for_Recreation/blob/db637f08f70c37aaed770f3d2eb3de232d29d254/admin.py): The script dealing with setting up and managing administrator roles for admins-only slash commands.
 - [counting.py](https://github.com/NhatMinhPhan/Discord_Bot_for_Recreation/blob/db637f08f70c37aaed770f3d2eb3de232d29d254/counting.py): The script that processes counting messages, which originate only from the #counting channel.
@@ -23,17 +23,17 @@ _Discord.py, requests,_ and _python-dotenv_. The Random Word API is also integra
 
 __________________________________________________________________________________________
 # COMMANDS
-## General:
+## General
     `/help`: Get available commands from this bot
     `/hey`: Say hey to the bot!
     `/hello`: Say hello to the bot!
     
-## Administrative:
+## Administrative
     `/get_admin_roles`: Get a list of the admin roles for this server (Admins-only)
     `/update_admin_roles`: Update admin roles for this bot with names (Admins-only if admin roles for this bot have been set)
     `/reset_admin_roles`: Reset admin roles for this bot (Admins-only if admin roles for this bot have been set)
     
-## Counting (only works in #counting channel):
+## Counting (only works in #counting channel)
     `/counting_mode`: Check the status of the counting mode (ON/OFF)
     `/toggle_counting`: Toggle the status of the counting mode (ON/OFF) (Admins-only)
     `/one_number_per_user`: Check the status of the one_number_per_user setting for counting (ON/OFF)
@@ -43,13 +43,13 @@ ________________________________________________________________________________
     `/counting_high_score`: Check the high score achieved in the counting game
     `/set_max_lives_to <positive-integer>` : Set the number of max counting lives to a certain positive integer (Admins-only)
     
-## Hangman (only works in #hangman channel):
+## Hangman (only works in #hangman channel)
     `/new_hangman <Optional: word-length>`: Create or reset a new hangman game played only in #hangman
     `/hangman_guess <letter>`: Guess a letter for an ongoing game of hangman only in #hangman if there is one
     `/end_hangman`: Terminate any ongoing game of hangman. This works only in #hangman.
     `/hangman_progress`: Show the used letters and the answer so far for the current game of hangman
     
-## Rock paper scissors:
+## Rock paper scissors
     `/rps-cast <move (rock, paper, scissors or corresponding emoji)> <ephemeral (If True, the message will only be seen by you)>`: Play rock paper scissors with the bot!
 __________________________________________________________________________________________
 © Nhat Minh Phan, 2025
