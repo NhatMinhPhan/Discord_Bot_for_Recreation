@@ -4,7 +4,7 @@ This bot facilitates activities comprising of counting, hangman and rock paper s
 Enter /help for commands.
 
 The following libraries and packages are crucial in this bot's operations, all of which were installed via the Python PIP:
-_Discord.py, requests,_ and _python-dotenv_. The Random Word API is also integrated for the hangman features.
+_Discord.py, requests,_ and _python-dotenv_. The [Random Word API](https://random-word-api.herokuapp.com/home) is also integrated for the hangman features.
 
 ### Instructions
 1. Install the libraries above: _Discord.py, requests,_ and _python-dotenv_.
