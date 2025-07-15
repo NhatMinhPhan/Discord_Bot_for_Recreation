@@ -1,4 +1,4 @@
-This is a Discord bot which is not reliant on any use of a database and is programmed for practice and non-professional purposes.
+This is a Discord bot which is not reliant on databases and is programmed for practice and non-professional purposes.
 This bot facilitates activities comprising of counting, hangman and rock paper scissors.
 
 Enter /help for commands.
